@@ -104,8 +104,9 @@ function initializeSorting() {
     const form = document.getElementById("carsFilterForm");
     const sortField = document.getElementById("sortField");
     const sortDirection = document.getElementById("sortDirection");
+    const pageNumber = document.getElementById("pageNumber");
 
-    if (!form || !sortField || !sortDirection) {
+    if (!form || !sortField || !sortDirection || !pageNumber) {
         return;
     }
 
@@ -124,6 +125,8 @@ function initializeSorting() {
                     sortField.value = clickedField;
                     sortDirection.value = "Ascending";
                 }
+
+                pageNumber.value = "1";
 
                 saveScrollPosition();
 
