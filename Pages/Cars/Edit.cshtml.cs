@@ -1,5 +1,6 @@
 using Carbase.Data;
 using Carbase.Models.Car;
+using Carbase.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,13 +12,16 @@ public class EditModel : PageModel
 {
     private readonly AppDbContext _context;
     private readonly IValidator<CarEditRequest> _validator;
+    private readonly CarImageService _carImageService;
 
     public EditModel(
         AppDbContext context,
-        IValidator<CarEditRequest> validator)
+        IValidator<CarEditRequest> validator,
+        CarImageService carImageService)
     {
         _context = context;
         _validator = validator;
+        _carImageService = carImageService;
     }
 
     [BindProperty]
@@ -36,6 +40,9 @@ public class EditModel : PageModel
         EditRequest = new CarEditRequest
         {
             Id = car.Id,
+
+            ImagePath = car.ImagePath,
+
             Brand = car.Brand,
             Model = car.Model,
             Year = car.Year,
@@ -54,8 +61,27 @@ public class EditModel : PageModel
         return Page();
     }
 
-    public async Task<IActionResult> OnPostAsync()
+    public async Task<IActionResult> OnPostAsync(long id)
     {
+        if (id != EditRequest.Id)
+        {
+            return BadRequest();
+        }
+
+        var car = await _context.Cars.FindAsync(id);
+
+        if (car is null)
+        {
+            return NotFound();
+        }
+
+        EditRequest.Id = car.Id;
+        EditRequest.ImagePath = car.ImagePath;
+        EditRequest.Brand = car.Brand;
+        EditRequest.Model = car.Model;
+        EditRequest.Year = car.Year;
+        EditRequest.Tuner = car.Tuner;
+
         if (!ModelState.IsValid)
         {
             return Page();
@@ -76,11 +102,26 @@ public class EditModel : PageModel
             return Page();
         }
 
-        var car = await _context.Cars.FindAsync(EditRequest.Id);
+        var oldImagePath = car.ImagePath;
+        string? newImagePath = null;
 
-        if (car is null)
+        if (EditRequest.Image is not null)
         {
-            return NotFound();
+            try
+            {
+                newImagePath = await _carImageService.SaveAsync(
+                    EditRequest.Image);
+            }
+            catch (InvalidOperationException ex)
+            {
+                ModelState.AddModelError(
+                    "EditRequest.Image",
+                    ex.Message);
+
+                EditRequest.ImagePath = oldImagePath;
+
+                return Page();
+            }
         }
 
         car.WeightKg = EditRequest.WeightKg;
@@ -93,7 +134,17 @@ public class EditModel : PageModel
         car.Time200To250 = EditRequest.Time200To250;
         car.TimeQuarterMile = EditRequest.TimeQuarterMile;
 
+        if (newImagePath is not null)
+        {
+            car.ImagePath = newImagePath;
+        }
+
         await _context.SaveChangesAsync();
+
+        if (newImagePath is not null)
+        {
+            _carImageService.DeleteFile(oldImagePath);
+        }
 
         return RedirectToPage("./Index");
     }

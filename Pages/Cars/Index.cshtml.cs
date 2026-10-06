@@ -13,13 +13,16 @@ namespace Carbase.Pages.Cars
     {
         private readonly AppDbContext _context;
         private readonly CarQueryService _carQueryService;
+        private readonly CarImageService _carImageService;
 
         public IndexModel(
             AppDbContext context,
-            CarQueryService carQueryService)
+            CarQueryService carQueryService,
+            CarImageService carImageService)
         {
             _context = context;
             _carQueryService = carQueryService;
+            _carImageService = carImageService;
         }
 
         public IList<Car> Cars { get; set; } = new List<Car>();
@@ -86,8 +89,12 @@ namespace Carbase.Pages.Cars
                 return NotFound();
             }
 
+            var imagePath = car.ImagePath;
+
             _context.Cars.Remove(car);
             await _context.SaveChangesAsync();
+
+            _carImageService.DeleteFile(imagePath);
 
             return RedirectToPage();
         }

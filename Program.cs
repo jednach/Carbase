@@ -26,6 +26,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
                 "__EFMigrationsHistory",
                 "carbase");
         }));
+builder.Services.AddScoped<CarImageService>();
 builder.Services.AddValidatorsFromAssemblyContaining<CarCreateRequestValidator>();
 builder.Services.AddScoped<CarQueryService>();
 

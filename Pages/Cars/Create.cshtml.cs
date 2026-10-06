@@ -1,5 +1,6 @@
 using Carbase.Data;
 using Carbase.Models.Car;
+using Carbase.Services;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -11,13 +12,16 @@ namespace Carbase.Pages.Cars
     {
         private readonly AppDbContext _context;
         private readonly IValidator<CarCreateRequest> _validator;
+        private readonly CarImageService _carImageService;
 
         public CreateModel(
             AppDbContext context,
-            IValidator<CarCreateRequest> validator)
+            IValidator<CarCreateRequest> validator,
+            CarImageService carImageService)
         {
             _context = context;
             _validator = validator;
+            _carImageService = carImageService;
         }
 
         [BindProperty]
@@ -29,6 +33,12 @@ namespace Carbase.Pages.Cars
 
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!IsMultipartFormData())
+            {
+                return StatusCode(
+                    StatusCodes.Status415UnsupportedMediaType);
+            }
+
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -71,8 +81,28 @@ namespace Carbase.Pages.Cars
                 return Page();
             }
 
+            string? imagePath = null;
+
+            if (CreateRequest.Image is not null)
+            {
+                try
+                {
+                    imagePath = await _carImageService.SaveAsync(
+                        CreateRequest.Image);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    ModelState.AddModelError(
+                        "CreateRequest.Image",
+                        ex.Message);
+
+                    return Page();
+                }
+            }
+
             var car = new Car
             {
+                ImagePath = imagePath,
                 Brand = brand,
                 Model = model,
                 Year = year,
@@ -91,6 +121,15 @@ namespace Carbase.Pages.Cars
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
+        }
+
+        private bool IsMultipartFormData()
+        {
+            return Request.HasFormContentType &&
+                   Request.ContentType is not null &&
+                   Request.ContentType.StartsWith(
+                       "multipart/form-data",
+                       StringComparison.OrdinalIgnoreCase);
         }
     }
 }
