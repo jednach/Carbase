@@ -1,0 +1,97 @@
+﻿@using System.Globalization
+@using Carbase.Models.Filters
+
+@model NumericFilterPartialModel
+
+@{
+    var idPrefix = Model.Prefix.Replace(".", "_");
+
+    string FormatValue(object? value)
+    {
+        if (value is IFormattable formattable)
+        {
+            return formattable.ToString(
+                null,
+                CultureInfo.CurrentCulture);
+        }
+
+        return value?.ToString() ?? "";
+    }
+}
+
+<div class="col-12 col-lg-6 numeric-filter">
+
+    <label class="form-label fw-semibold">
+        @Model.Label
+    </label>
+
+    <div class="d-flex gap-2">
+
+        <select name="@(Model.Prefix).Type"
+                id="@(idPrefix)_Type"
+                class="form-select numeric-filter-type">
+
+            <option value="All"
+                    selected="@(Model.Type == NumericFilterType.All ? "selected" : null)">
+                All
+            </option>
+
+            @if (Model.AllowPresence)
+            {
+                <option value="With"
+                        selected="@(Model.Type == NumericFilterType.With ? "selected" : null)">
+                    With
+                </option>
+
+                <option value="Without"
+                        selected="@(Model.Type == NumericFilterType.Without ? "selected" : null)">
+                    Without
+                </option>
+            }
+
+            <option value="Between"
+                    selected="@(Model.Type == NumericFilterType.Between ? "selected" : null)">
+                Between
+            </option>
+
+            <option value="LessThan"
+                    selected="@(Model.Type == NumericFilterType.LessThan ? "selected" : null)">
+                Less than
+            </option>
+
+            <option value="GreaterThan"
+                    selected="@(Model.Type == NumericFilterType.GreaterThan ? "selected" : null)">
+                More than
+            </option>
+
+        </select>
+
+        <div class="numeric-single flex-grow-1">
+            <input name="@(Model.Prefix).Value"
+                   value="@FormatValue(Model.Value)"
+                   type="text"
+                   inputmode="decimal"
+                   class="form-control numeric-value"
+                   placeholder="Value" />
+        </div>
+
+        <div class="numeric-between flex-grow-1 d-flex gap-2">
+
+            <input name="@(Model.Prefix).From"
+                   value="@FormatValue(Model.From)"
+                   type="text"
+                   inputmode="decimal"
+                   class="form-control numeric-from"
+                   placeholder="From" />
+
+            <input name="@(Model.Prefix).To"
+                   value="@FormatValue(Model.To)"
+                   type="text"
+                   inputmode="decimal"
+                   class="form-control numeric-to"
+                   placeholder="To" />
+
+        </div>
+
+    </div>
+</div>

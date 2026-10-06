@@ -1,6 +1,7 @@
 ﻿using Carbase.Models.Car;
 using Carbase.Models.Filters;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Carbase.Services
 {
@@ -26,12 +27,6 @@ namespace Carbase.Services
                     EF.Functions.ILike(c.Model, $"%{model}%"));
             }
 
-            if (filter.Year.HasValue)
-            {
-                query = query.Where(c =>
-                    c.Year == filter.Year.Value);
-            }
-
             switch (filter.TunerStatus)
             {
                 case PresenceFilter.With:
@@ -52,7 +47,122 @@ namespace Carbase.Services
                     break;
             }
 
+            query = ApplyNumericFilter(
+                query,
+                filter.Year,
+                c => (int?)c.Year);
+
+            query = ApplyNumericFilter(
+                query,
+                filter.WeightKg,
+                c => c.WeightKg);
+
+            query = ApplyNumericFilter(
+                query,
+                filter.HorsePower,
+                c => c.HorsePower);
+
+            query = ApplyNumericFilter(
+                query,
+                filter.TorqueNm,
+                c => c.TorqueNm);
+
+            query = ApplyNumericFilter(
+                query,
+                filter.TopSpeed,
+                c => c.TopSpeed);
+
+            query = ApplyNumericFilter(
+                query,
+                filter.Time0To100,
+                c => c.Time0To100);
+
+            query = ApplyNumericFilter(
+                query,
+                filter.Time100To200,
+                c => c.Time100To200);
+
+            query = ApplyNumericFilter(
+                query,
+                filter.Time200To250,
+                c => c.Time200To250);
+
+            query = ApplyNumericFilter(
+                query,
+                filter.TimeQuarterMile,
+                c => c.TimeQuarterMile);
+
             return query;
+        }
+
+        private static IQueryable<Car> ApplyNumericFilter<T>(
+            IQueryable<Car> query,
+            NumericFilter<T> filter,
+            Expression<Func<Car, T?>> selector)
+            where T : struct
+        {
+            var parameter = selector.Parameters[0];
+            var property = selector.Body;
+
+            Expression? condition = filter.Type switch
+            {
+                NumericFilterType.All =>
+                    null,
+
+                NumericFilterType.With =>
+                    Expression.NotEqual(
+                        property,
+                        Expression.Constant(null, typeof(T?))),
+
+                NumericFilterType.Without =>
+                    Expression.Equal(
+                        property,
+                        Expression.Constant(null, typeof(T?))),
+
+                NumericFilterType.Between
+                    when filter.From.HasValue && filter.To.HasValue =>
+                    Expression.AndAlso(
+                        Expression.GreaterThanOrEqual(
+                            property,
+                            ToNullableConstant(filter.From.Value)),
+                        Expression.LessThanOrEqual(
+                            property,
+                            ToNullableConstant(filter.To.Value))),
+
+                NumericFilterType.LessThan
+                    when filter.Value.HasValue =>
+                    Expression.LessThan(
+                        property,
+                        ToNullableConstant(filter.Value.Value)),
+
+                NumericFilterType.GreaterThan
+                    when filter.Value.HasValue =>
+                    Expression.GreaterThan(
+                        property,
+                        ToNullableConstant(filter.Value.Value)),
+
+                _ => null
+            };
+
+            if (condition is null)
+            {
+                return query;
+            }
+
+            var predicate =
+                Expression.Lambda<Func<Car, bool>>(
+                    condition,
+                    parameter);
+
+            return query.Where(predicate);
+        }
+
+        private static Expression ToNullableConstant<T>(T value)
+            where T : struct
+        {
+            return Expression.Convert(
+                Expression.Constant(value, typeof(T)),
+                typeof(T?));
         }
     }
 }
