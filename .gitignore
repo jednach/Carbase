@@ -60,5 +60,5 @@ nunit-*.xml
 sixlabors.lic
 
 # Uploads
-
 /wwwroot/uploads/cars/*
+!/wwwroot/uploads/cars/.gitkeep
