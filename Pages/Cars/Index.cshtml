@@ -1,6 +1,7 @@
 ﻿@page
 @model Carbase.Pages.Cars.IndexModel
 @using Carbase.Models.Filters
+@using Carbase.Models.Sorting
 
 <h1>Cars</h1>
 
@@ -10,7 +11,15 @@
 
 
 
-<form method="get" class="mb-4">
+<form method="get" class="mb-4" id="carsFilterForm">
+
+    <input type="hidden"
+       asp-for="Sort.Field"
+       id="sortField" />
+
+    <input type="hidden"
+           asp-for="Sort.Direction"
+           id="sortDirection" />
 
     <div class="row g-2 mb-3">
 
@@ -44,8 +53,6 @@
         </div>
 
     </div>
-
-    <!-- TUTAJ wrzucasz numeric filters -->
 
     <div class="row g-3">
 
@@ -169,7 +176,9 @@
             Filter
         </button>
 
-        <a asp-page="./Index" class="btn btn-secondary">
+        <a asp-page="./Index"
+           id="clearFilters"
+           class="btn btn-secondary">
             Clear
         </a>
     </div>
@@ -182,16 +191,116 @@
             <tr>
                 <th>Brand</th>
                 <th>Model</th>
-                <th>Year</th>
+                <th>
+                    <button type="button"
+                            class="sort-header border-0 bg-transparent p-0 fw-bold text-dark"
+                            data-sort-field="Year">
+                        Year
+
+                        @if (Model.Sort.Field == CarSortField.Year)
+                        {
+                            @(Model.Sort.Direction == SortDirection.Ascending ? "↑" : "↓")
+                        }
+                    </button>
+                </th>
                 <th>Tuner</th>
-                <th>Weight [kg]</th>
-                <th>Horse Power</th>
-                <th>Torque [Nm]</th>
-                <th>Top Speed [km/h]</th>
-                <th>0-100 [s]</th>
-                <th>100-200 [s]</th>
-                <th>200-250 [s]</th>
-                <th>1/4 Mile [s]</th>
+                <th>
+                    <button type="button"
+                            class="sort-header border-0 bg-transparent p-0 fw-bold text-dark"
+                            data-sort-field="WeightKg">
+                        Weight [kg]
+
+                        @if (Model.Sort.Field == CarSortField.WeightKg)
+                        {
+                            @(Model.Sort.Direction == SortDirection.Ascending ? "↑" : "↓")
+                        }
+                    </button>
+                </th>
+                <th>
+                    <button type="button"
+                            class="sort-header border-0 bg-transparent p-0 fw-bold text-dark"
+                            data-sort-field="HorsePower">
+                        Horse Power
+
+                        @if (Model.Sort.Field == CarSortField.HorsePower)
+                        {
+                            @(Model.Sort.Direction == SortDirection.Ascending ? "↑" : "↓")
+                        }
+                    </button>
+                </th>
+                <th>
+                    <button type="button"
+                            class="sort-header border-0 bg-transparent p-0 fw-bold text-dark"
+                            data-sort-field="TorqueNm">
+                        Torque [Nm]
+
+                        @if (Model.Sort.Field == CarSortField.TorqueNm)
+                        {
+                            @(Model.Sort.Direction == SortDirection.Ascending ? "↑" : "↓")
+                        }
+                    </button>
+                </th>
+                <th>
+                    <button type="button"
+                            class="sort-header border-0 bg-transparent p-0 fw-bold text-dark"
+                            data-sort-field="TopSpeed">
+                        Top Speed [km/h]
+
+                        @if (Model.Sort.Field == CarSortField.TopSpeed)
+                        {
+                            @(Model.Sort.Direction == SortDirection.Ascending ? "↑" : "↓")
+                        }
+                    </button>
+                </th>
+                <th>
+                    <button type="button"
+                            class="sort-header border-0 bg-transparent p-0 fw-bold text-dark"
+                            data-sort-field="Time0To100">
+                        0-100 [s]
+
+                        @if (Model.Sort.Field == CarSortField.Time0To100)
+                        {
+                            @(Model.Sort.Direction == SortDirection.Ascending ? "↑" : "↓")
+                        }
+                    </button>
+                </th>
+                <th>
+                    <button type="button"
+                            class="sort-header border-0 bg-transparent p-0 fw-bold text-dark"
+                            data-sort-field="Time100To200">
+                        100-200 [s]
+
+                        @if (Model.Sort.Field == CarSortField.Time100To200)
+                        {
+                            @(Model.Sort.Direction == SortDirection.Ascending ? "↑" : "↓")
+                        }
+
+                    </button>
+                </th>
+                <th>
+                    <button type="button"
+                            class="sort-header border-0 bg-transparent p-0 fw-bold text-dark"
+                            data-sort-field="Time200To250">
+                        200-250 [s]
+
+                        @if (Model.Sort.Field == CarSortField.Time200To250)
+                        {
+                            @(Model.Sort.Direction == SortDirection.Ascending ? "↑" : "↓")
+                        }
+                    </button>
+                </th>
+                <th>
+                    <button type="button"
+                            class="sort-header border-0 bg-transparent p-0 fw-bold text-dark"
+                            data-sort-field="TimeQuarterMile">
+                        1/4 Mile [s]
+
+                        @if (Model.Sort.Field == CarSortField.TimeQuarterMile)
+                        {
+                            @(Model.Sort.Direction == SortDirection.Ascending ? "↑" : "↓")
+                        }
+                    </button>
+                </th>
                 <th>Actions</th>
             </tr>
         </thead>

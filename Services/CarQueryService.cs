@@ -1,5 +1,6 @@
 ﻿using Carbase.Models.Car;
 using Carbase.Models.Filters;
+using Carbase.Models.Sorting;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -95,6 +96,70 @@ namespace Carbase.Services
             return query;
         }
 
+        public IQueryable<Car> ApplySorting(
+            IQueryable<Car> query,
+            CarSortRequest sort)
+        {
+            return sort.Field switch
+            {
+                CarSortField.Year =>
+                    ApplyNumericSorting(
+                        query,
+                        sort.Direction,
+                        c => (int?)c.Year),
+
+                CarSortField.WeightKg =>
+                    ApplyNumericSorting(
+                        query,
+                        sort.Direction,
+                        c => c.WeightKg),
+
+                CarSortField.HorsePower =>
+                    ApplyNumericSorting(
+                        query,
+                        sort.Direction,
+                        c => c.HorsePower),
+
+                CarSortField.TorqueNm =>
+                    ApplyNumericSorting(
+                        query,
+                        sort.Direction,
+                        c => c.TorqueNm),
+
+                CarSortField.TopSpeed =>
+                    ApplyNumericSorting(
+                        query,
+                        sort.Direction,
+                        c => c.TopSpeed),
+
+                CarSortField.Time0To100 =>
+                    ApplyNumericSorting(
+                        query,
+                        sort.Direction,
+                        c => c.Time0To100),
+
+                CarSortField.Time100To200 =>
+                    ApplyNumericSorting(
+                        query,
+                        sort.Direction,
+                        c => c.Time100To200),
+
+                CarSortField.Time200To250 =>
+                    ApplyNumericSorting(
+                        query,
+                        sort.Direction,
+                        c => c.Time200To250),
+
+                CarSortField.TimeQuarterMile =>
+                    ApplyNumericSorting(
+                        query,
+                        sort.Direction,
+                        c => c.TimeQuarterMile),
+
+                _ => query
+            };
+        }
+
         private static IQueryable<Car> ApplyNumericFilter<T>(
             IQueryable<Car> query,
             NumericFilter<T> filter,
@@ -155,6 +220,36 @@ namespace Carbase.Services
                     parameter);
 
             return query.Where(predicate);
+        }
+
+        private static IQueryable<Car> ApplyNumericSorting<T>(
+            IQueryable<Car> query,
+            SortDirection direction,
+            Expression<Func<Car, T?>> selector)
+            where T : struct
+        {
+            var parameter = selector.Parameters[0];
+
+            var hasValueExpression = Expression.NotEqual(
+                selector.Body,
+                Expression.Constant(null, typeof(T?)));
+
+            var hasValueSelector =
+                Expression.Lambda<Func<Car, bool>>(
+                    hasValueExpression,
+                    parameter);
+
+            var orderedQuery =
+                query.OrderByDescending(hasValueSelector);
+
+            return direction switch
+            {
+                SortDirection.Descending =>
+                    orderedQuery.ThenByDescending(selector),
+
+                _ =>
+                    orderedQuery.ThenBy(selector)
+            };
         }
 
         private static Expression ToNullableConstant<T>(T value)

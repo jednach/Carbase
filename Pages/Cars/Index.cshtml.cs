@@ -1,6 +1,7 @@
 using Carbase.Data;
 using Carbase.Models.Car;
 using Carbase.Models.Filters;
+using Carbase.Models.Sorting;
 using Carbase.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -26,6 +27,9 @@ namespace Carbase.Pages.Cars
         [BindProperty(SupportsGet = true)]
         public CarFilterRequest Filter { get; set; } = new();
 
+        [BindProperty(SupportsGet = true)]
+        public CarSortRequest Sort { get; set; } = new();
+
         public async Task OnGetAsync()
         {
             var query = _context.Cars
@@ -33,6 +37,8 @@ namespace Carbase.Pages.Cars
                 .AsQueryable();
 
             query = _carQueryService.ApplyFilters(query, Filter);
+
+            query = _carQueryService.ApplySorting(query, Sort);
 
             Cars = await query.ToListAsync();
         }
