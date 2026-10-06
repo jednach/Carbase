@@ -4,6 +4,9 @@
     initializeClearFilters();
     initializeSorting();
     initializeScrollRestore();
+    initializeFilterSubmit();
+    initializePagination();
+    initializePageSize();
 });
 
 function initializeTunerFilter() {
@@ -60,7 +63,7 @@ function initializeNumericFilters() {
 
                 const showSingle =
                     mode === "LessThan" ||
-                    mode === "MoreThan";
+                    mode === "GreaterThan";
 
                 const showBetween =
                     mode === "Between";
@@ -162,4 +165,56 @@ function restoreScrollPosition() {
         window.scrollTo(0, Number(scrollY));
         sessionStorage.removeItem("carsScrollY");
     }
+}
+
+function initializeFilterSubmit() {
+    const form = document.getElementById("carsFilterForm");
+    const pageNumber = document.getElementById("pageNumber");
+
+    if (!form || !pageNumber) {
+        return;
+    }
+
+    form.addEventListener("submit", () => {
+        pageNumber.value = "1";
+        saveScrollPosition();
+    });
+}
+
+function initializePagination() {
+    const form = document.getElementById("carsFilterForm");
+    const pageNumber = document.getElementById("pageNumber");
+
+    if (!form || !pageNumber) {
+        return;
+    }
+
+    document.querySelectorAll(".pagination-button")
+        .forEach(button => {
+            button.addEventListener("click", () => {
+                pageNumber.value = button.dataset.page;
+
+                saveScrollPosition();
+
+                form.submit();
+            });
+        });
+}
+
+function initializePageSize() {
+    const form = document.getElementById("carsFilterForm");
+    const pageNumber = document.getElementById("pageNumber");
+    const pageSize = document.getElementById("pageSize");
+
+    if (!form || !pageNumber || !pageSize) {
+        return;
+    }
+
+    pageSize.addEventListener("change", () => {
+        pageNumber.value = "1";
+
+        saveScrollPosition();
+
+        form.submit();
+    });
 }

@@ -30,8 +30,27 @@ namespace Carbase.Pages.Cars
         [BindProperty(SupportsGet = true)]
         public CarSortRequest Sort { get; set; } = new();
 
-        public async Task OnGetAsync()
+        [BindProperty(SupportsGet = true)]
+        public int PageNumber { get; set; } = 1;
+
+        [BindProperty(SupportsGet = true)]
+        public int PageSize { get; set; } = 20;
+
+        public int TotalPages { get; set; }
+        public int TotalItems { get; set; }
+
+        public async Task<IActionResult> OnGetAsync()
         {
+            if (PageNumber < 1)
+            {
+                return BadRequest();
+            }
+
+            if (PageSize < 1)
+            {
+                return BadRequest();
+            }
+
             var query = _context.Cars
                 .AsNoTracking()
                 .AsQueryable();
@@ -40,7 +59,17 @@ namespace Carbase.Pages.Cars
 
             query = _carQueryService.ApplySorting(query, Sort);
 
-            Cars = await query.ToListAsync();
+            TotalItems = await query.CountAsync();
+
+            TotalPages = (int)Math.Ceiling(
+                TotalItems / (double)PageSize);
+
+            Cars = await query
+                .Skip((PageNumber - 1) * PageSize)
+                .Take(PageSize)
+                .ToListAsync();
+
+            return Page();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(long? id)
