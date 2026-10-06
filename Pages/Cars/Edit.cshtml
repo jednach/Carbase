@@ -1,0 +1,104 @@
+﻿@page
+@model Carbase.Pages.Cars.EditModel
+
+<h1>Edit car</h1>
+
+<form method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <input type="hidden" asp-for="EditRequest.Id" />
+    <input type="hidden" asp-for="EditRequest.Brand" />
+    <input type="hidden" asp-for="EditRequest.Model" />
+    <input type="hidden" asp-for="EditRequest.Year" />
+    <input type="hidden" asp-for="EditRequest.Tuner" />
+
+    <div class="mb-3">
+        <label class="form-label">Brand</label>
+        <div class="form-control-plaintext">@Model.EditRequest.Brand</div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Model</label>
+        <div class="form-control-plaintext">@Model.EditRequest.Model</div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Year</label>
+        <div class="form-control-plaintext">@Model.EditRequest.Year</div>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Tuner</label>
+        <div class="form-control-plaintext">@Model.EditRequest.Tuner</div>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EditRequest.WeightKg" class="form-label"></label>
+        <input asp-for="EditRequest.WeightKg" class="form-control" />
+        <span asp-validation-for="EditRequest.WeightKg" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EditRequest.HorsePower" class="form-label"></label>
+        <input asp-for="EditRequest.HorsePower" class="form-control" />
+        <span asp-validation-for="EditRequest.HorsePower" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EditRequest.TorqueNm" class="form-label"></label>
+        <input asp-for="EditRequest.TorqueNm" class="form-control" />
+        <span asp-validation-for="EditRequest.TorqueNm" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EditRequest.TopSpeed" class="form-label"></label>
+        <input asp-for="EditRequest.TopSpeed" class="form-control" />
+        <span asp-validation-for="EditRequest.TopSpeed" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EditRequest.Time0To100" class="form-label"></label>
+        <input asp-for="EditRequest.Time0To100"
+               type="text"
+               inputmode="decimal"
+               class="form-control" />
+        <span asp-validation-for="EditRequest.Time0To100" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EditRequest.Time100To200" class="form-label"></label>
+        <input asp-for="EditRequest.Time100To200"
+               type="text"
+               inputmode="decimal"
+               class="form-control" />
+        <span asp-validation-for="EditRequest.Time100To200" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EditRequest.Time200To250" class="form-label"></label>
+        <input asp-for="EditRequest.Time200To250"
+               type="text"
+               inputmode="decimal"
+               class="form-control" />
+        <span asp-validation-for="EditRequest.Time200To250" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="EditRequest.TimeQuarterMile" class="form-label"></label>
+        <input asp-for="EditRequest.TimeQuarterMile"
+               type="text"
+               inputmode="decimal"
+               class="form-control" />
+        <span asp-validation-for="EditRequest.TimeQuarterMile" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Save
+    </button>
+
+    <a asp-page="./Index" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>

@@ -1,0 +1,132 @@
+﻿@page
+@model Carbase.Pages.Cars.IndexModel
+
+<h1>Cars</h1>
+
+<a asp-page="./Create" class="btn btn-primary mb-3">
+    Add car
+</a>
+
+<div class="table-responsive">
+
+    <form method="get" class="mb-4">
+
+        <div class="row g-2">
+
+            <div class="col">
+                <input asp-for="Filter.Brand"
+                       class="form-control"
+                       placeholder="Brand" />
+            </div>
+
+            <div class="col">
+                <input asp-for="Filter.Model"
+                       class="form-control"
+                       placeholder="Model" />
+            </div>
+
+            <div class="col">
+                <input asp-for="Filter.Year"
+                       class="form-control"
+                       placeholder="Year" />
+            </div>
+
+            <div class="col">
+                <select asp-for="Filter.TunerStatus"
+                        id="tunerStatus"
+                        class="form-select">
+                    <option value="All">All</option>
+                    <option value="With">With tuner</option>
+                    <option value="Without">Without tuner</option>
+                </select>
+            </div>
+
+            <div class="col">
+                <input asp-for="Filter.Tuner"
+                       id="tunerName"
+                       class="form-control"
+                       placeholder="Tuner name" />
+            </div>
+
+            <div class="col-auto">
+                <button type="submit"
+                        class="btn btn-primary">
+                    Filter
+                </button>
+            </div>
+
+            <div class="col-auto">
+                <a asp-page="./Index"
+                   class="btn btn-secondary">
+                    Clear
+                </a>
+            </div>
+
+        </div>
+
+    </form>
+
+    <table class="table table-striped table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Year</th>
+                <th>Tuner</th>
+                <th>Weight [kg]</th>
+                <th>Horse Power</th>
+                <th>Torque [Nm]</th>
+                <th>Top Speed [km/h]</th>
+                <th>0-100 [s]</th>
+                <th>100-200 [s]</th>
+                <th>200-250 [s]</th>
+                <th>1/4 Mile [s]</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var car in Model.Cars)
+            {
+                <tr>
+                    <td>@car.Brand</td>
+                    <td>@car.Model</td>
+                    <td>@car.Year</td>
+                    <td>@car.Tuner</td>
+                    <td>@car.WeightKg</td>
+                    <td>@car.HorsePower</td>
+                    <td>@car.TorqueNm</td>
+                    <td>@car.TopSpeed</td>
+                    <td>@car.Time0To100</td>
+                    <td>@car.Time100To200</td>
+                    <td>@car.Time200To250</td>
+                    <td>@car.TimeQuarterMile</td>
+
+                    <td class="text-nowrap">
+                        <a asp-page="./Edit"
+                           asp-route-id="@car.Id"
+                           class="btn btn-sm btn-warning">
+                            Edit
+                        </a>
+
+                        <form method="post"
+                              asp-page-handler="Delete"
+                              asp-route-id="@car.Id"
+                              class="d-inline">
+
+                            <button type="submit"
+                                    class="btn btn-sm btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete @car.Brand @car.Model?');">
+                                Delete
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script src="~/js/cars-index.js"></script>
+}

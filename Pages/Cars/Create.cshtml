@@ -1,0 +1,102 @@
+﻿@page
+@model Carbase.Pages.Cars.CreateModel
+
+<h1>Add car</h1>
+
+<form method="post">
+
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.Brand" class="form-label"></label>
+        <input asp-for="CreateRequest.Brand" class="form-control" />
+        <span asp-validation-for="CreateRequest.Brand" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.Model" class="form-label"></label>
+        <input asp-for="CreateRequest.Model" class="form-control" />
+        <span asp-validation-for="CreateRequest.Model" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.Year" class="form-label"></label>
+        <input asp-for="CreateRequest.Year" class="form-control" />
+        <span asp-validation-for="CreateRequest.Year" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.Tuner" class="form-label"></label>
+        <input asp-for="CreateRequest.Tuner" class="form-control" />
+        <span asp-validation-for="CreateRequest.Tuner" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.WeightKg" class="form-label"></label>
+        <input asp-for="CreateRequest.WeightKg" class="form-control" />
+        <span asp-validation-for="CreateRequest.WeightKg" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.HorsePower" class="form-label"></label>
+        <input asp-for="CreateRequest.HorsePower" class="form-control" />
+        <span asp-validation-for="CreateRequest.HorsePower" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.TorqueNm" class="form-label"></label>
+        <input asp-for="CreateRequest.TorqueNm" class="form-control" />
+        <span asp-validation-for="CreateRequest.TorqueNm" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.TopSpeed" class="form-label"></label>
+        <input asp-for="CreateRequest.TopSpeed" class="form-control" />
+        <span asp-validation-for="CreateRequest.TopSpeed" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.Time0To100" class="form-label"></label>
+        <input asp-for="CreateRequest.Time0To100"
+               type="text"
+               inputmode="decimal"
+               class="form-control" />
+        <span asp-validation-for="CreateRequest.Time0To100" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.Time100To200" class="form-label"></label>
+        <input asp-for="CreateRequest.Time100To200"
+               type="text"
+               inputmode="decimal"
+               class="form-control" />
+        <span asp-validation-for="CreateRequest.Time100To200" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.Time200To250" class="form-label"></label>
+        <input asp-for="CreateRequest.Time200To250"
+               type="text"
+               inputmode="decimal"
+               class="form-control" />
+        <span asp-validation-for="CreateRequest.Time200To250" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="CreateRequest.TimeQuarterMile" class="form-label"></label>
+        <input asp-for="CreateRequest.TimeQuarterMile"
+               type="text"
+               inputmode="decimal"
+               class="form-control" />
+        <span asp-validation-for="CreateRequest.TimeQuarterMile" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+        Add car
+    </button>
+
+    <a asp-page="./Index" class="btn btn-secondary">
+        Back
+    </a>
+
+</form>
