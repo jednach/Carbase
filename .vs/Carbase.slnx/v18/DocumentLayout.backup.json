@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|c:\\users\\admin\\documents\\github\\carbase\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|c:\\users\\admin\\documents\\github\\carbase\\pages\\cars\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|solutionrelative:pages\\cars\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -18,32 +22,44 @@
       "DocumentGroups": [
         {
           "DockedWidth": 146,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Pages\\Cars\\Edit.cshtml",
               "RelativeDocumentMoniker": "Pages\\Cars\\Edit.cshtml",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Pages\\Cars\\Edit.cshtml",
               "RelativeToolTip": "Pages\\Cars\\Edit.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA8AAAA3AAAAAAAAAA==",
+              "ViewState": "AgIAAIoAAAAAAAAAAAAmwKwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-10-06T21:57:26.93Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Edit.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Pages\\Cars\\Edit.cshtml.cs",
               "RelativeDocumentMoniker": "Pages\\Cars\\Edit.cshtml.cs",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Pages\\Cars\\Edit.cshtml.cs",
               "RelativeToolTip": "Pages\\Cars\\Edit.cshtml.cs",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAlwD8AAAA4AAAAAAAAAA==",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAtwD8AAAA4AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-06T21:30:14.033Z",
+              "WhenOpened": "2026-10-06T21:30:14.033Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAD8AAAAFAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF8SURBVDhPjVNLTgJBEG1lwpoFB3GNK9fieA48hD8iwT/ihwgSDAIHgAGXXsEV18CNzL/LquqZdsYM6kteXqcy3fWqpmpNRBgOhyABBEgpAFVKPIMUcYzUyOU\u002BXM/b2qtU3vkSfRjjZTCAMAw1A2LwzdFoBPP5HNqdzuL27n4juibWI\u002BUshBA1DIkhEx9iEorFotgslQqGYbxxAGFEqt1MxmPWJLbLZdZ\u002Bv89q5PMFPiTR6z2zdaxR0fXA0XTBcVywkb4fwHXjRteecIDNQ7UmExVYAdPcxYaqclN46na5WenMKjtlVnTYwcXlVYaDqImW9beD5N/TeGy32QHXm6hZ03ZgiSQHp2fnWQ4oBmJqWSqwAqZpZjt4aLXAD4J0VqyZsmoubfB8H2r1eoaD6NXZ9HcHO\u002BSA3f4AjifXl8rItOETM8ckB9WTWpYD9RdeZ1PWVWAHWXPQaDb59f/w8LiqHeh1pvGkCaP6qB8yXusoxmuNZ7XmII4O9vGuEF86osuDYRkpYQAAAABJRU5ErkJggg==",
+              "WhenOpened": "2026-10-06T22:09:31.087Z",
               "EditorCaption": ""
             }
           ]

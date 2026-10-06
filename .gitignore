@@ -58,3 +58,7 @@ nunit-*.xml
 
 # Licenses
 sixlabors.lic
+
+# Uploads
+
+/wwwroot/uploads
