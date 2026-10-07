@@ -5,6 +5,7 @@
         All,
         With,
         Without,
+        Exact,
         Between,
         LessThan,
         GreaterThan

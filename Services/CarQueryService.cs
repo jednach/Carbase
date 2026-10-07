@@ -184,6 +184,12 @@ namespace Carbase.Services
                         property,
                         Expression.Constant(null, typeof(T?))),
 
+                NumericFilterType.Exact
+                    when filter.Value.HasValue =>
+                    Expression.Equal(
+                        property,
+                        ToNullableConstant(filter.Value.Value)),
+
                 NumericFilterType.Between
                     when filter.From.HasValue && filter.To.HasValue =>
                     Expression.AndAlso(

@@ -79,6 +79,7 @@ function initializeNumericFilters() {
                 const mode = type.value;
 
                 const showSingle =
+                    mode === "Exact" ||
                     mode === "LessThan" ||
                     mode === "GreaterThan";
 

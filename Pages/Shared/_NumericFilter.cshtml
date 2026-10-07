@@ -49,6 +49,11 @@
                 </option>
             }
 
+            <option value="Exact"
+                    selected="@(Model.Type == NumericFilterType.Exact ? "selected" : null)">
+                Exact
+            </option>
+
             <option value="Between"
                     selected="@(Model.Type == NumericFilterType.Between ? "selected" : null)">
                 Between
