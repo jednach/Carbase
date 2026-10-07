@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|c:\\users\\admin\\documents\\github\\carbase\\wwwroot\\js\\cars-index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|solutionrelative:wwwroot\\js\\cars-index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|c:\\users\\admin\\documents\\github\\carbase\\pages\\cars\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|solutionrelative:pages\\cars\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -27,19 +31,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "cars-index.js",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\wwwroot\\js\\cars-index.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\cars-index.js",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\wwwroot\\js\\cars-index.js",
+              "RelativeToolTip": "wwwroot\\js\\cars-index.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-10-07T19:44:01.684Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Pages\\Cars\\Index.cshtml",
               "RelativeDocumentMoniker": "Pages\\Cars\\Index.cshtml",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Pages\\Cars\\Index.cshtml",
               "RelativeToolTip": "Pages\\Cars\\Index.cshtml",
-              "ViewState": "AgIAAAsCAAAAAAAAAAAowCkCAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAAGkCAAAAAAAAAAAcwHYCAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-10-07T19:36:11.446Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Pages\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "Pages\\Shared\\_Layout.cshtml",
@@ -47,12 +64,11 @@
               "RelativeToolTip": "Pages\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAABwAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-07T19:35:43.13Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-07T19:35:43.13Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Index.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Pages\\Cars\\Index.cshtml.cs",
               "RelativeDocumentMoniker": "Pages\\Cars\\Index.cshtml.cs",
@@ -60,8 +76,7 @@
               "RelativeToolTip": "Pages\\Cars\\Index.cshtml.cs",
               "ViewState": "AgIAACoAAAAAAAAAAAAkwDsAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-07T18:56:26.542Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-07T18:56:26.542Z"
             }
           ]
         }

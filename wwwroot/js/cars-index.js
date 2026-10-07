@@ -6,6 +6,7 @@
     initializeSorting();
     initializeScrollRestore();
     initializeFilterSubmit();
+    initializeDeleteModal();
     initializePagination();
     initializePageSize();
 });
@@ -235,6 +236,46 @@ function initializeFilterSubmit() {
     form.addEventListener("submit", () => {
         pageNumber.value = "1";
         saveScrollPosition();
+    });
+}
+
+function initializeDeleteModal() {
+    const deleteButtons =
+        document.querySelectorAll(".delete-car-button");
+
+    const carId =
+        document.getElementById("deleteCarId");
+
+    const carName =
+        document.getElementById("deleteCarName");
+
+    const carYear =
+        document.getElementById("deleteCarYear");
+
+    const carTuner =
+        document.getElementById("deleteCarTuner");
+
+    if (!carId ||
+        !carName ||
+        !carYear ||
+        !carTuner) {
+        return;
+    }
+
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            carId.value =
+                button.dataset.carId;
+
+            carName.textContent =
+                `${button.dataset.carBrand} ${button.dataset.carModel}`;
+
+            carYear.textContent =
+                button.dataset.carYear;
+
+            carTuner.textContent =
+                button.dataset.carTuner;
+        });
     });
 }
 

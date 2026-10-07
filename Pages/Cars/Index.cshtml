@@ -531,30 +531,27 @@ else
                         <tr>
 
                             <td class="text-nowrap">
+                                <div class="d-flex justify-content-center gap-2">
 
-                                <a asp-page="./Edit"
-                                   asp-route-id="@car.Id"
-                                   class="btn btn-sm btn-outline-primary">
-                                    Edit
-                                </a>
+                                    <a asp-page="./Edit"
+                                       asp-route-id="@car.Id"
+                                       class="btn btn-sm btn-outline-primary">
+                                        Edit
+                                    </a>
 
-                                <form method="post"
-                                      asp-page-handler="Delete"
-                                      asp-route-id="@car.Id"
-                                      class="d-inline">
-
-                                    <button type="submit"
-                                            class="btn btn-sm btn-outline-danger"
-                                            onclick="return confirm(
-                                                'Are you sure you want to delete this car?\n\n' +
-                                                '@car.Brand @car.Model (@car.Year)\n' +
-                                                'Tuner: @(string.IsNullOrWhiteSpace(car.Tuner) ? "None" : car.Tuner)'
-                                            );">
+                                    <button type="button"
+                                            class="btn btn-sm btn-outline-danger delete-car-button"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#deleteCarModal"
+                                            data-car-id="@car.Id"
+                                            data-car-brand="@car.Brand"
+                                            data-car-model="@car.Model"
+                                            data-car-year="@car.Year"
+                                            data-car-tuner="@(string.IsNullOrWhiteSpace(car.Tuner) ? "None" : car.Tuner)">
                                         Delete
                                     </button>
 
-                                </form>
-
+                                </div>
                             </td>
                             <td class="ps-3">
                                 <img src="@(string.IsNullOrWhiteSpace(car.ImagePath)
@@ -628,6 +625,90 @@ else
 
     </div>
 }
+
+<div class="modal fade"
+     id="deleteCarModal"
+     tabindex="-1"
+     aria-labelledby="deleteCarModalLabel"
+     aria-hidden="true">
+
+    <div class="modal-dialog modal-dialog-centered">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="deleteCarModalLabel">
+                    Delete car
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                </button>
+            </div>
+
+            <div class="modal-body">
+
+                <p>
+                    Are you sure you want to delete this car?
+                </p>
+
+                <div class="border rounded p-3 bg-light">
+
+                    <div class="fw-semibold fs-5"
+                         id="deleteCarName">
+                    </div>
+
+                    <div class="text-muted mt-2">
+                        Year:
+                        <span id="deleteCarYear"></span>
+                    </div>
+
+                    <div class="text-muted">
+                        Tuner:
+                        <span id="deleteCarTuner"></span>
+                    </div>
+
+                </div>
+
+                <p class="text-danger mt-3 mb-0">
+                    This action cannot be undone.
+                </p>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button"
+                        class="btn btn-outline-secondary"
+                        data-bs-dismiss="modal">
+                    Cancel
+                </button>
+
+                <form method="post"
+                      asp-page-handler="Delete"
+                      id="deleteCarForm">
+
+                    <input type="hidden"
+                           name="id"
+                           id="deleteCarId" />
+
+                    <button type="submit"
+                            class="btn btn-danger">
+                        Delete car
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 @if (Model.TotalPages > 1)
 {
