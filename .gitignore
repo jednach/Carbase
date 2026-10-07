@@ -62,3 +62,8 @@ sixlabors.lic
 # Uploads
 /wwwroot/uploads/cars/*
 !/wwwroot/uploads/cars/.gitkeep
+
+# Environment
+.env
+
+.vs/

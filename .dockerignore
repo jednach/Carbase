@@ -1,0 +1,15 @@
+bin/
+obj/
+.vs/
+.git/
+.gitignore
+.env
+.env.change
+
+Dockerfile*
+compose*.yml
+compose*.yaml
+
+sixlabors.lic
+
+wwwroot/uploads/cars/*
