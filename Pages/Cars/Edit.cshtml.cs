@@ -29,12 +29,6 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(long? id)
     {
-        if (!IsMultipartFormData())
-        {
-            return StatusCode(
-                StatusCodes.Status415UnsupportedMediaType);
-        }
-
         if (id is null) return BadRequest();
 
         var car = await _context.Cars
@@ -69,6 +63,12 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnPostAsync(long id)
     {
+        if (!IsMultipartFormData())
+        {
+            return StatusCode(
+                StatusCodes.Status415UnsupportedMediaType);
+        }
+
         if (id != EditRequest.Id)
         {
             return BadRequest();
