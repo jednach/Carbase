@@ -627,6 +627,21 @@ else
 
 @if (Model.TotalPages > 1)
 {
+    
+    const int maxVisiblePages = 5;
+
+    var startPage = Math.Max(
+        1,
+        Model.PageNumber - maxVisiblePages / 2);
+
+    var endPage = Math.Min(
+        Model.TotalPages,
+        startPage + maxVisiblePages - 1);
+
+    startPage = Math.Max(
+        1,
+        endPage - maxVisiblePages + 1);
+
     <nav class="mt-4"
          aria-label="Cars pagination">
 
@@ -640,8 +655,8 @@ else
                 </button>
             </li>
 
-            @for (var pageNumber = 1;
-                  pageNumber <= Model.TotalPages;
+            @for (var pageNumber = startPage;
+                  pageNumber <= endPage;
                   pageNumber++)
             {
                 <li class="page-item @(pageNumber == Model.PageNumber ? "active" : "")">
