@@ -17,7 +17,7 @@ namespace Carbase.Services
                 var brand = filter.Brand.Trim();
 
                 query = query.Where(c =>
-                    EF.Functions.ILike(c.Brand, $"%{brand}%"));
+                    EF.Functions.ILike(c.Brand, $"{brand}%"));
             }
 
             if (!string.IsNullOrWhiteSpace(filter.Model))
@@ -25,7 +25,7 @@ namespace Carbase.Services
                 var model = filter.Model.Trim();
 
                 query = query.Where(c =>
-                    EF.Functions.ILike(c.Model, $"%{model}%"));
+                    EF.Functions.ILike(c.Model, $"{model}%"));
             }
 
             switch (filter.TunerStatus)
@@ -38,7 +38,7 @@ namespace Carbase.Services
                         var tuner = filter.Tuner.Trim();
 
                         query = query.Where(c =>
-                            EF.Functions.ILike(c.Tuner!, $"%{tuner}%"));
+                            EF.Functions.ILike(c.Tuner!, $"{tuner}%"));
                     }
 
                     break;

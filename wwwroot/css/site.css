@@ -29,3 +29,13 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+
+.cars-table th,
+.cars-table td {
+    border-right: 1px solid var(--bs-border-color);
+}
+
+.cars-table th:last-child,
+.cars-table td:last-child {
+    border-right: none;
+}

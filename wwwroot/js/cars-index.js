@@ -10,26 +10,41 @@
 });
 
 function initializeTunerFilter() {
-    const tunerStatus = document.getElementById("tunerStatus");
-    const tunerName = document.getElementById("tunerName");
+    const tunerStatus =
+        document.getElementById("tunerStatus");
 
-    if (!tunerStatus || !tunerName) {
+    const tunerName =
+        document.getElementById("tunerName");
+
+    const tunerNameContainer =
+        document.getElementById("tunerNameContainer");
+
+    if (!tunerStatus ||
+        !tunerName ||
+        !tunerNameContainer) {
         return;
     }
 
-    function update() {
-        const enabled = tunerStatus.value === "With";
+    function update(clearUnused) {
+        const show =
+            tunerStatus.value === "With";
 
-        tunerName.disabled = !enabled;
+        tunerNameContainer.classList.toggle(
+            "d-none",
+            !show);
 
-        if (!enabled) {
+        tunerName.disabled = !show;
+
+        if (!show && clearUnused) {
             tunerName.value = "";
         }
     }
 
-    tunerStatus.addEventListener("change", update);
+    tunerStatus.addEventListener(
+        "change",
+        () => update(true));
 
-    update();
+    update(false);
 }
 
 function initializeNumericFilters() {
