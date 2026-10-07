@@ -7,16 +7,12 @@
       "RelativeMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|c:\\users\\admin\\documents\\github\\carbase\\wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|solutionrelative:wwwroot\\js\\site.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|c:\\users\\admin\\documents\\github\\carbase\\wwwroot\\js\\cars-index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|solutionrelative:wwwroot\\js\\cars-index.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|c:\\users\\admin\\documents\\github\\carbase\\pages\\cars\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|solutionrelative:pages\\cars\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|c:\\users\\admin\\documents\\github\\carbase\\services\\carqueryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E897A2F2-9899-636B-FE10-0F119D68144E}|Carbase.csproj|solutionrelative:services\\carqueryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,45 +22,19 @@
       "DocumentGroups": [
         {
           "DockedWidth": 146,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "site.css",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "wwwroot\\css\\site.css",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAACcAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2026-10-07T12:52:38.593Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "site.js",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\wwwroot\\js\\site.js",
-              "RelativeDocumentMoniker": "wwwroot\\js\\site.js",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\wwwroot\\js\\site.js",
-              "RelativeToolTip": "wwwroot\\js\\site.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAeAAAAAAAAAA==",
+              "Title": "cars-index.js",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\wwwroot\\js\\cars-index.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\cars-index.js",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\wwwroot\\js\\cars-index.js",
+              "RelativeToolTip": "wwwroot\\js\\cars-index.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2026-10-07T12:48:30.843Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "CarQueryService.cs",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Services\\CarQueryService.cs",
-              "RelativeDocumentMoniker": "Services\\CarQueryService.cs",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Services\\CarQueryService.cs",
-              "RelativeToolTip": "Services\\CarQueryService.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAgwB0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-07T12:43:39.51Z",
+              "WhenOpened": "2026-10-07T16:02:07.886Z",
               "EditorCaption": ""
             },
             {
@@ -75,9 +45,22 @@
               "RelativeDocumentMoniker": "Pages\\Cars\\Index.cshtml",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\Pages\\Cars\\Index.cshtml",
               "RelativeToolTip": "Pages\\Cars\\Index.cshtml",
-              "ViewState": "AgIAAFABAAAAAAAAAAAowGEBAABKAAAAAAAAAA==",
+              "ViewState": "AgIAAFMBAAAAAAAAAAAAAGgBAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-10-07T12:36:00.889Z",
+              "WhenOpened": "2026-10-07T16:01:04.517Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\Carbase\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "wwwroot\\css\\site.css",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAADUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-10-07T15:36:45.466Z",
               "EditorCaption": ""
             }
           ]

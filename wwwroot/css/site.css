@@ -35,7 +35,24 @@ body {
     border-right: 1px solid var(--bs-border-color);
 }
 
-.cars-table th:last-child,
-.cars-table td:last-child {
-    border-right: none;
+.cars-table th,
+.cars-table td {
+    padding: 0.75rem 1rem;
+    border: 1px solid #adb5bd;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.cars-table th,
+.cars-table .sort-header {
+    white-space: nowrap;
+}
+
+.cars-table {
+    font-size: 0.8rem;
+}
+
+.cars-table th,
+.cars-table td {
+    padding: 0.6rem 0.5rem;
 }

@@ -2,6 +2,7 @@
     initializeTunerFilter();
     initializeNumericFilters();
     initializeClearFilters();
+    initializeTableScrollSync();
     initializeSorting();
     initializeScrollRestore();
     initializeFilterSubmit();
@@ -113,6 +114,44 @@ function initializeNumericFilters() {
 
             update(false);
         });
+}
+
+function initializeTableScrollSync() {
+    const topScroll =
+        document.getElementById("tableTopScroll");
+
+    const topScrollContent =
+        document.getElementById("tableTopScrollContent");
+
+    const tableScroll =
+        document.getElementById("tableScroll");
+
+    if (!topScroll ||
+        !topScrollContent ||
+        !tableScroll) {
+        return;
+    }
+
+    function updateTopScrollWidth() {
+        topScrollContent.style.width =
+            `${tableScroll.scrollWidth}px`;
+    }
+
+    topScroll.addEventListener("scroll", () => {
+        tableScroll.scrollLeft =
+            topScroll.scrollLeft;
+    });
+
+    tableScroll.addEventListener("scroll", () => {
+        topScroll.scrollLeft =
+            tableScroll.scrollLeft;
+    });
+
+    updateTopScrollWidth();
+
+    window.addEventListener(
+        "resize",
+        updateTopScrollWidth);
 }
 
 function initializeSorting() {
