@@ -56,3 +56,7 @@ body {
 .cars-table td {
     padding: 0.6rem 0.5rem;
 }
+
+.validation-summary-valid {
+    display: none;
+}

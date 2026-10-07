@@ -1,140 +1,354 @@
 ﻿@page
 @model Carbase.Pages.Cars.CreateModel
 
-<h1>Add car</h1>
+<div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
 
-<form method="post" enctype="multipart/form-data">
+        <div class="d-flex justify-content-between align-items-start mb-4">
+            <div>
+                <h1 class="mb-1">Add car</h1>
+                <p class="text-muted mb-0">
+                    Add a new car to the database.
+                </p>
+            </div>
 
-    <div asp-validation-summary="All" class="text-danger"></div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.Image" class="form-label">
-            Image
-        </label>
-
-        <input asp-for="CreateRequest.Image"
-           type="file"
-           class="form-control"
-           accept="image/jpeg,image/png,image/webp"
-           id="imageInput" />
-
-        <span asp-validation-for="CreateRequest.Image"
-              class="text-danger"></span>
-
-        <div class="mt-3">
-            <img id="imagePreview"
-                 src="/images/empty-car.png"
-                 alt="Image preview"
-                 style="width:100px; height:70px; object-fit:cover;"
-                 class="img-thumbnail mt-2" />
+            <a asp-page="./Index"
+               class="btn btn-outline-secondary">
+                Back to cars
+            </a>
         </div>
+
+        <form method="post"
+              enctype="multipart/form-data">
+
+            <div asp-validation-summary="All"
+                 class="alert alert-danger mb-4">
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+
+                    <h5 class="mb-1">
+                        Basic information
+                    </h5>
+
+                    <p class="text-muted mb-4">
+                        General information identifying the car.
+                    </p>
+
+                    <div class="row g-3">
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.Brand"
+                                   class="form-label fw-semibold">
+                                Brand
+                            </label>
+
+                            <input asp-for="CreateRequest.Brand"
+                                   class="form-control"
+                                   placeholder="e.g. BMW" />
+
+                            <span asp-validation-for="CreateRequest.Brand"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.Model"
+                                   class="form-label fw-semibold">
+                                Model
+                            </label>
+
+                            <input asp-for="CreateRequest.Model"
+                                   class="form-control"
+                                   placeholder="e.g. M3 Competition" />
+
+                            <span asp-validation-for="CreateRequest.Model"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.Year"
+                                   class="form-label fw-semibold">
+                                Year
+                            </label>
+
+                            <input asp-for="CreateRequest.Year"
+                                   type="text"
+                                   inputmode="numeric"
+                                   class="form-control"
+                                   placeholder="e.g. 2024" />
+
+                            <span asp-validation-for="CreateRequest.Year"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.Tuner"
+                                   class="form-label fw-semibold">
+                                Tuner
+                            </label>
+
+                            <input asp-for="CreateRequest.Tuner"
+                                   class="form-control"
+                                   placeholder="Optional" />
+
+                            <span asp-validation-for="CreateRequest.Tuner"
+                                  class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+
+                    <h5 class="mb-1">
+                        Car image
+                    </h5>
+
+                    <p class="text-muted mb-4">
+                        Upload an optional image of the car.
+                    </p>
+
+                    <div class="row align-items-center g-4">
+
+                        <div class="col-12 col-md-auto">
+                            <img id="imagePreview"
+                                 src="/images/empty-car.png"
+                                 alt="Image preview"
+                                 class="rounded-3 border"
+                                 style="width:240px;
+                            height:160px;
+                            object-fit:cover;" />
+                        </div>
+
+                        <div class="col">
+
+                            <label asp-for="CreateRequest.Image"
+                                   class="form-label fw-semibold">
+                                Choose image
+                            </label>
+
+                            <input asp-for="CreateRequest.Image"
+                                   type="file"
+                                   class="form-control"
+                                   accept="image/jpeg,image/png,image/webp"
+                                   id="imageInput" />
+
+                            <span asp-validation-for="CreateRequest.Image"
+                                  class="text-danger"></span>
+
+                            <div class="form-text mt-2">
+                                JPG, PNG or WEBP. Maximum 5 MB.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+
+                    <h5 class="mb-1">
+                        Performance
+                    </h5>
+
+                    <p class="text-muted mb-4">
+                        Engine performance and vehicle specifications.
+                    </p>
+
+                    <div class="row g-3">
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.WeightKg"
+                                   class="form-label fw-semibold">
+                                Weight [kg]
+                            </label>
+
+                            <input asp-for="CreateRequest.WeightKg"
+                                   type="text"
+                                   inputmode="numeric"
+                                   class="form-control"
+                                   placeholder="e.g. 1650" />
+
+                            <span asp-validation-for="CreateRequest.WeightKg"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.HorsePower"
+                                   class="form-label fw-semibold">
+                                Horse Power
+                            </label>
+
+                            <input asp-for="CreateRequest.HorsePower"
+                                   type="text"
+                                   inputmode="numeric"
+                                   class="form-control"
+                                   placeholder="e.g. 510" />
+
+                            <span asp-validation-for="CreateRequest.HorsePower"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.TorqueNm"
+                                   class="form-label fw-semibold">
+                                Torque [Nm]
+                            </label>
+
+                            <input asp-for="CreateRequest.TorqueNm"
+                                   type="text"
+                                   inputmode="numeric"
+                                   class="form-control"
+                                   placeholder="e.g. 650" />
+
+                            <span asp-validation-for="CreateRequest.TorqueNm"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.TopSpeed"
+                                   class="form-label fw-semibold">
+                                Top Speed [km/h]
+                            </label>
+
+                            <input asp-for="CreateRequest.TopSpeed"
+                                   type="text"
+                                   inputmode="numeric"
+                                   class="form-control"
+                                   placeholder="e.g. 290" />
+
+                            <span asp-validation-for="CreateRequest.TopSpeed"
+                                  class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+
+                    <h5 class="mb-1">
+                        Acceleration
+                    </h5>
+
+                    <p class="text-muted mb-4">
+                        Acceleration and quarter-mile times in seconds.
+                    </p>
+
+                    <div class="row g-3">
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.Time0To100"
+                                   class="form-label fw-semibold">
+                                0-100 [s]
+                            </label>
+
+                            <input asp-for="CreateRequest.Time0To100"
+                                   type="text"
+                                   inputmode="decimal"
+                                   class="form-control"
+                                   placeholder="e.g. 3.9" />
+
+                            <span asp-validation-for="CreateRequest.Time0To100"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.Time100To200"
+                                   class="form-label fw-semibold">
+                                100-200 [s]
+                            </label>
+
+                            <input asp-for="CreateRequest.Time100To200"
+                                   type="text"
+                                   inputmode="decimal"
+                                   class="form-control"
+                                   placeholder="e.g. 8.5" />
+
+                            <span asp-validation-for="CreateRequest.Time100To200"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.Time200To250"
+                                   class="form-label fw-semibold">
+                                200-250 [s]
+                            </label>
+
+                            <input asp-for="CreateRequest.Time200To250"
+                                   type="text"
+                                   inputmode="decimal"
+                                   class="form-control"
+                                   placeholder="e.g. 6.2" />
+
+                            <span asp-validation-for="CreateRequest.Time200To250"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="CreateRequest.TimeQuarterMile"
+                                   class="form-label fw-semibold">
+                                1/4 Mile [s]
+                            </label>
+
+                            <input asp-for="CreateRequest.TimeQuarterMile"
+                                   type="text"
+                                   inputmode="decimal"
+                                   class="form-control"
+                                   placeholder="e.g. 11.8" />
+
+                            <span asp-validation-for="CreateRequest.TimeQuarterMile"
+                                  class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mb-4">
+
+                <a asp-page="./Index"
+                   class="btn btn-outline-secondary">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn btn-primary px-4">
+                    Add car
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.Brand" class="form-label"></label>
-        <input asp-for="CreateRequest.Brand" class="form-control" />
-        <span asp-validation-for="CreateRequest.Brand" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.Model" class="form-label"></label>
-        <input asp-for="CreateRequest.Model" class="form-control" />
-        <span asp-validation-for="CreateRequest.Model" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.Year" class="form-label"></label>
-        <input asp-for="CreateRequest.Year" class="form-control" />
-        <span asp-validation-for="CreateRequest.Year" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.Tuner" class="form-label"></label>
-        <input asp-for="CreateRequest.Tuner" class="form-control" />
-        <span asp-validation-for="CreateRequest.Tuner" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.WeightKg" class="form-label"></label>
-        <input asp-for="CreateRequest.WeightKg" class="form-control" />
-        <span asp-validation-for="CreateRequest.WeightKg" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.HorsePower" class="form-label"></label>
-        <input asp-for="CreateRequest.HorsePower" class="form-control" />
-        <span asp-validation-for="CreateRequest.HorsePower" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.TorqueNm" class="form-label"></label>
-        <input asp-for="CreateRequest.TorqueNm" class="form-control" />
-        <span asp-validation-for="CreateRequest.TorqueNm" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.TopSpeed" class="form-label"></label>
-        <input asp-for="CreateRequest.TopSpeed" class="form-control" />
-        <span asp-validation-for="CreateRequest.TopSpeed" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.Time0To100" class="form-label"></label>
-        <input asp-for="CreateRequest.Time0To100"
-               type="text"
-               inputmode="decimal"
-               class="form-control" />
-        <span asp-validation-for="CreateRequest.Time0To100" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.Time100To200" class="form-label"></label>
-        <input asp-for="CreateRequest.Time100To200"
-               type="text"
-               inputmode="decimal"
-               class="form-control" />
-        <span asp-validation-for="CreateRequest.Time100To200" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.Time200To250" class="form-label"></label>
-        <input asp-for="CreateRequest.Time200To250"
-               type="text"
-               inputmode="decimal"
-               class="form-control" />
-        <span asp-validation-for="CreateRequest.Time200To250" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="CreateRequest.TimeQuarterMile" class="form-label"></label>
-        <input asp-for="CreateRequest.TimeQuarterMile"
-               type="text"
-               inputmode="decimal"
-               class="form-control" />
-        <span asp-validation-for="CreateRequest.TimeQuarterMile" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-        Add car
-    </button>
-
-    <a asp-page="./Index" class="btn btn-secondary">
-        Back
-    </a>
-
-</form>
+</div>
 
 @section Scripts {
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const imageInput = document.getElementById("imageInput");
-            const imagePreview = document.getElementById("imagePreview");
+            const imageInput =
+                document.getElementById("imageInput");
+
+            const imagePreview =
+                document.getElementById("imagePreview");
 
             if (!imageInput || !imagePreview) {
                 return;
             }
 
-            const emptyImagePath = "/images/empty-car.png";
+            const emptyImagePath =
+                "/images/empty-car.png";
 
             let currentObjectUrl = null;
 
@@ -142,17 +356,24 @@
                 const file = imageInput.files?.[0];
 
                 if (currentObjectUrl) {
-                    URL.revokeObjectURL(currentObjectUrl);
+                    URL.revokeObjectURL(
+                        currentObjectUrl);
+
                     currentObjectUrl = null;
                 }
 
                 if (!file) {
-                    imagePreview.src = emptyImagePath;
+                    imagePreview.src =
+                        emptyImagePath;
+
                     return;
                 }
 
-                currentObjectUrl = URL.createObjectURL(file);
-                imagePreview.src = currentObjectUrl;
+                currentObjectUrl =
+                    URL.createObjectURL(file);
+
+                imagePreview.src =
+                    currentObjectUrl;
             });
         });
     </script>
