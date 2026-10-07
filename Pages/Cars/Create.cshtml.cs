@@ -69,7 +69,7 @@ namespace Carbase.Pages.Cars
             var exists = await _context.Cars.AnyAsync(c =>
                 c.Brand == brand &&
                 c.Model == model &&
-                c.Year ==  year &&
+                c.Year == year &&
                 c.Tuner == tuner);
 
             if (exists)
@@ -118,7 +118,20 @@ namespace Carbase.Pages.Cars
             };
 
             _context.Cars.Add(car);
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch
+            {
+                if (imagePath is not null)
+                {
+                    _carImageService.DeleteFile(imagePath);
+                }
+
+                throw;
+            }
 
             return RedirectToPage("./Index");
         }

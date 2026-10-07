@@ -44,6 +44,11 @@ namespace Carbase.Pages.Cars
 
         public async Task<IActionResult> OnGetAsync()
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
+
             if (PageNumber < 1)
             {
                 return BadRequest();

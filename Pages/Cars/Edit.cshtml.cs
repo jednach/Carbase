@@ -29,6 +29,12 @@ public class EditModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(long? id)
     {
+        if (!IsMultipartFormData())
+        {
+            return StatusCode(
+                StatusCodes.Status415UnsupportedMediaType);
+        }
+
         if (id is null) return BadRequest();
 
         var car = await _context.Cars
@@ -139,7 +145,19 @@ public class EditModel : PageModel
             car.ImagePath = newImagePath;
         }
 
-        await _context.SaveChangesAsync();
+        try
+        {
+            await _context.SaveChangesAsync();
+        }
+        catch
+        {
+            if (newImagePath is not null)
+            {
+                _carImageService.DeleteFile(newImagePath);
+            }
+
+            throw;
+        }
 
         if (newImagePath is not null)
         {
@@ -147,5 +165,14 @@ public class EditModel : PageModel
         }
 
         return RedirectToPage("./Index");
+    }
+
+    private bool IsMultipartFormData()
+    {
+        return Request.HasFormContentType &&
+               Request.ContentType is not null &&
+               Request.ContentType.StartsWith(
+                   "multipart/form-data",
+                   StringComparison.OrdinalIgnoreCase);
     }
 }

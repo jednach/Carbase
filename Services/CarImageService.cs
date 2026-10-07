@@ -1,8 +1,8 @@
 ﻿using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Formats.Webp;
+using SixLabors.ImageSharp.Processing;
 
 namespace Carbase.Services
 {
@@ -76,6 +76,12 @@ namespace Carbase.Services
                     "Only JPG, PNG and WEBP images are allowed.")
             };
 
+            if (imageInfo.FrameMetadataCollection.Count > 1)
+            {
+                throw new InvalidOperationException(
+                    "Animated images are not allowed.");
+            }
+
             if (imageInfo.Width < MinWidth ||
                 imageInfo.Height < MinHeight)
             {
@@ -111,6 +117,8 @@ namespace Carbase.Services
 
             using (image)
             {
+                image.Mutate(x => x.AutoOrient());
+
                 image.Metadata.ExifProfile = null;
                 image.Metadata.IccProfile = null;
                 image.Metadata.XmpProfile = null;
@@ -145,13 +153,18 @@ namespace Carbase.Services
                 return;
             }
 
-            var relativePath = imagePath
-                .TrimStart('/')
-                .Replace('/', Path.DirectorySeparatorChar);
+            var fileName = Path.GetFileName(imagePath);
+
+            if (string.IsNullOrWhiteSpace(fileName))
+            {
+                return;
+            }
 
             var fullPath = Path.Combine(
                 _environment.WebRootPath,
-                relativePath);
+                "uploads",
+                "cars",
+                fileName);
 
             if (File.Exists(fullPath))
             {
