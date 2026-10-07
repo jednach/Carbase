@@ -1,168 +1,385 @@
 ﻿@page
 @model Carbase.Pages.Cars.EditModel
 
-<h1>Edit car</h1>
+<div class="row justify-content-center">
+    <div class="col-12 col-xl-10">
 
-<form method="post"
-      asp-route-id="@Model.EditRequest.Id"
-      enctype="multipart/form-data">
+        <div class="d-flex justify-content-between align-items-start mb-4">
+            <div>
+                <h1 class="mb-1">Edit car</h1>
+                <p class="text-muted mb-0">
+                    Update technical specifications and car image.
+                </p>
+            </div>
 
-    <div asp-validation-summary="All" class="text-danger"></div>
-
-    <input type="hidden" asp-for="EditRequest.Id" />
-
-    <div class="mb-3">
-        <label class="form-label">Current image</label>
-
-        <div class="mb-2">
-            <img src="@(string.IsNullOrWhiteSpace(Model.EditRequest.ImagePath)
-                ? "/images/empty-car.png"
-                : Model.EditRequest.ImagePath)"
-                 alt="Current car image"
-                 style="width:100px; height:70px; object-fit:cover;"
-                 class="img-thumbnail" />
-        </div>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">New image</label>
-
-        <div class="mb-2">
-            <img id="newImagePreview"
-                 src="/images/empty-car.png"
-                 alt="New image preview"
-                 style="width:100px; height:70px; object-fit:cover;"
-                 class="img-thumbnail" />
+            <a asp-page="./Index"
+               class="btn btn-outline-secondary">
+                Back to cars
+            </a>
         </div>
 
-        <input asp-for="EditRequest.Image"
-               type="file"
-               class="form-control"
-               accept="image/jpeg,image/png,image/webp"
-               id="imageInput" />
+        <form method="post"
+              asp-route-id="@Model.EditRequest.Id"
+              enctype="multipart/form-data">
 
-        <span asp-validation-for="EditRequest.Image"
-              class="text-danger"></span>
+            <input type="hidden"
+                   asp-for="EditRequest.Id" />
+
+            <div asp-validation-summary="All"
+                 class="alert alert-danger mb-4">
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+
+                    <h5 class="mb-1">
+                        Basic information
+                    </h5>
+
+                    <p class="text-muted mb-4">
+                        General information identifying the car.
+                    </p>
+
+                    <div class="row g-3">
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label fw-semibold">
+                                Brand
+                            </label>
+
+                            <div class="form-control bg-light">
+                                @Model.EditRequest.Brand
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label fw-semibold">
+                                Model
+                            </label>
+
+                            <div class="form-control bg-light">
+                                @Model.EditRequest.Model
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label fw-semibold">
+                                Year
+                            </label>
+
+                            <div class="form-control bg-light">
+                                @Model.EditRequest.Year
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label class="form-label fw-semibold">
+                                Tuner
+                            </label>
+
+                            <div class="form-control bg-light">
+                                @(string.IsNullOrWhiteSpace(Model.EditRequest.Tuner)
+                                    ? "—"
+                                    : Model.EditRequest.Tuner)
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+
+                    <h5 class="mb-1">
+                        Car image
+                    </h5>
+
+                    <p class="text-muted mb-4">
+                        Replace the current image with a new one.
+                    </p>
+
+                    <div class="row g-4">
+
+                        <div class="col-12 col-lg-6">
+
+                            <label class="form-label fw-semibold">
+                                Current image
+                            </label>
+
+                            <div>
+                                <img src="@(string.IsNullOrWhiteSpace(Model.EditRequest.ImagePath)
+                                    ? "/images/empty-car.png"
+                                    : Model.EditRequest.ImagePath)"
+                                     alt="Current car image"
+                                     class="rounded-3 border"
+                                     style="width:240px;
+                                            height:160px;
+                                            object-fit:cover;" />
+                            </div>
+
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+
+                            <label class="form-label fw-semibold">
+                                New image
+                            </label>
+
+                            <div class="mb-3">
+                                <img id="newImagePreview"
+                                     src="/images/empty-car.png"
+                                     alt="New image preview"
+                                     class="rounded-3 border"
+                                     style="width:240px;
+                                            height:160px;
+                                            object-fit:cover;" />
+                            </div>
+
+                            <input asp-for="EditRequest.Image"
+                                   type="file"
+                                   class="form-control"
+                                   accept="image/jpeg,image/png,image/webp"
+                                   id="imageInput" />
+
+                            <span asp-validation-for="EditRequest.Image"
+                                  class="text-danger"></span>
+
+                            <div class="form-text mt-2">
+                                JPG, PNG or WEBP. Maximum 5 MB.
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+
+                    <h5 class="mb-1">
+                        Performance
+                    </h5>
+
+                    <p class="text-muted mb-4">
+                        Engine performance and vehicle specifications.
+                    </p>
+
+                    <div class="row g-3">
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="EditRequest.WeightKg"
+                                   class="form-label fw-semibold">
+                                Weight [kg]
+                            </label>
+
+                            <input asp-for="EditRequest.WeightKg"
+                                   type="text"
+                                   inputmode="numeric"
+                                   class="form-control"
+                                   placeholder="e.g. 1650" />
+
+                            <span asp-validation-for="EditRequest.WeightKg"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="EditRequest.HorsePower"
+                                   class="form-label fw-semibold">
+                                Horse Power
+                            </label>
+
+                            <input asp-for="EditRequest.HorsePower"
+                                   type="text"
+                                   inputmode="numeric"
+                                   class="form-control"
+                                   placeholder="e.g. 510" />
+
+                            <span asp-validation-for="EditRequest.HorsePower"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="EditRequest.TorqueNm"
+                                   class="form-label fw-semibold">
+                                Torque [Nm]
+                            </label>
+
+                            <input asp-for="EditRequest.TorqueNm"
+                                   type="text"
+                                   inputmode="numeric"
+                                   class="form-control"
+                                   placeholder="e.g. 650" />
+
+                            <span asp-validation-for="EditRequest.TorqueNm"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="EditRequest.TopSpeed"
+                                   class="form-label fw-semibold">
+                                Top Speed [km/h]
+                            </label>
+
+                            <input asp-for="EditRequest.TopSpeed"
+                                   type="text"
+                                   inputmode="numeric"
+                                   class="form-control"
+                                   placeholder="e.g. 290" />
+
+                            <span asp-validation-for="EditRequest.TopSpeed"
+                                  class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="card border-0 shadow-sm mb-4">
+                <div class="card-body p-4">
+
+                    <h5 class="mb-1">
+                        Acceleration
+                    </h5>
+
+                    <p class="text-muted mb-4">
+                        Acceleration and quarter-mile times in seconds.
+                    </p>
+
+                    <div class="row g-3">
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="EditRequest.Time0To100"
+                                   class="form-label fw-semibold">
+                                0-100 [s]
+                            </label>
+
+                            <input asp-for="EditRequest.Time0To100"
+                                   type="text"
+                                   inputmode="decimal"
+                                   class="form-control"
+                                   placeholder="e.g. 3.9" />
+
+                            <span asp-validation-for="EditRequest.Time0To100"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="EditRequest.Time100To200"
+                                   class="form-label fw-semibold">
+                                100-200 [s]
+                            </label>
+
+                            <input asp-for="EditRequest.Time100To200"
+                                   type="text"
+                                   inputmode="decimal"
+                                   class="form-control"
+                                   placeholder="e.g. 8.5" />
+
+                            <span asp-validation-for="EditRequest.Time100To200"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="EditRequest.Time200To250"
+                                   class="form-label fw-semibold">
+                                200-250 [s]
+                            </label>
+
+                            <input asp-for="EditRequest.Time200To250"
+                                   type="text"
+                                   inputmode="decimal"
+                                   class="form-control"
+                                   placeholder="e.g. 6.2" />
+
+                            <span asp-validation-for="EditRequest.Time200To250"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="col-12 col-md-6">
+                            <label asp-for="EditRequest.TimeQuarterMile"
+                                   class="form-label fw-semibold">
+                                1/4 Mile [s]
+                            </label>
+
+                            <input asp-for="EditRequest.TimeQuarterMile"
+                                   type="text"
+                                   inputmode="decimal"
+                                   class="form-control"
+                                   placeholder="e.g. 11.8" />
+
+                            <span asp-validation-for="EditRequest.TimeQuarterMile"
+                                  class="text-danger"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2 mb-4">
+
+                <a asp-page="./Index"
+                   class="btn btn-outline-secondary">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn btn-primary px-4">
+                    Save changes
+                </button>
+
+            </div>
+
+        </form>
+
     </div>
-
-    <div class="mb-3">
-        <label class="form-label">Brand</label>
-        <div class="form-control-plaintext">@Model.EditRequest.Brand</div>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Model</label>
-        <div class="form-control-plaintext">@Model.EditRequest.Model</div>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Year</label>
-        <div class="form-control-plaintext">@Model.EditRequest.Year</div>
-    </div>
-
-    <div class="mb-3">
-        <label class="form-label">Tuner</label>
-        <div class="form-control-plaintext">@Model.EditRequest.Tuner</div>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="EditRequest.WeightKg" class="form-label"></label>
-        <input asp-for="EditRequest.WeightKg" class="form-control" />
-        <span asp-validation-for="EditRequest.WeightKg" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="EditRequest.HorsePower" class="form-label"></label>
-        <input asp-for="EditRequest.HorsePower" class="form-control" />
-        <span asp-validation-for="EditRequest.HorsePower" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="EditRequest.TorqueNm" class="form-label"></label>
-        <input asp-for="EditRequest.TorqueNm" class="form-control" />
-        <span asp-validation-for="EditRequest.TorqueNm" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="EditRequest.TopSpeed" class="form-label"></label>
-        <input asp-for="EditRequest.TopSpeed" class="form-control" />
-        <span asp-validation-for="EditRequest.TopSpeed" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="EditRequest.Time0To100" class="form-label"></label>
-        <input asp-for="EditRequest.Time0To100"
-               type="text"
-               inputmode="decimal"
-               class="form-control" />
-        <span asp-validation-for="EditRequest.Time0To100" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="EditRequest.Time100To200" class="form-label"></label>
-        <input asp-for="EditRequest.Time100To200"
-               type="text"
-               inputmode="decimal"
-               class="form-control" />
-        <span asp-validation-for="EditRequest.Time100To200" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="EditRequest.Time200To250" class="form-label"></label>
-        <input asp-for="EditRequest.Time200To250"
-               type="text"
-               inputmode="decimal"
-               class="form-control" />
-        <span asp-validation-for="EditRequest.Time200To250" class="text-danger"></span>
-    </div>
-
-    <div class="mb-3">
-        <label asp-for="EditRequest.TimeQuarterMile" class="form-label"></label>
-        <input asp-for="EditRequest.TimeQuarterMile"
-               type="text"
-               inputmode="decimal"
-               class="form-control" />
-        <span asp-validation-for="EditRequest.TimeQuarterMile" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">
-        Save
-    </button>
-
-    <a asp-page="./Index" class="btn btn-secondary">
-        Cancel
-    </a>
-
-</form>
+</div>
 
 @section Scripts {
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const imageInput = document.getElementById("imageInput");
-            const newImagePreview = document.getElementById("newImagePreview");
+            const imageInput =
+                document.getElementById("imageInput");
+
+            const newImagePreview =
+                document.getElementById("newImagePreview");
 
             if (!imageInput || !newImagePreview) {
                 return;
             }
 
-            const emptyImagePath = "/images/empty-car.png";
+            const emptyImagePath =
+                "/images/empty-car.png";
+
             let currentObjectUrl = null;
 
             imageInput.addEventListener("change", () => {
                 const file = imageInput.files?.[0];
 
                 if (currentObjectUrl) {
-                    URL.revokeObjectURL(currentObjectUrl);
+                    URL.revokeObjectURL(
+                        currentObjectUrl);
+
                     currentObjectUrl = null;
                 }
 
                 if (!file) {
-                    newImagePreview.src = emptyImagePath;
+                    newImagePreview.src =
+                        emptyImagePath;
+
                     return;
                 }
 
-                currentObjectUrl = URL.createObjectURL(file);
-                newImagePreview.src = currentObjectUrl;
+                currentObjectUrl =
+                    URL.createObjectURL(file);
+
+                newImagePreview.src =
+                    currentObjectUrl;
             });
         });
     </script>
