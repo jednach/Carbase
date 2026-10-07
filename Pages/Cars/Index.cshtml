@@ -1,4 +1,4 @@
-﻿@page
+﻿@page "/"
 @model Carbase.Pages.Cars.IndexModel
 @using Carbase.Models.Filters
 @using Carbase.Models.Sorting
@@ -545,7 +545,11 @@ else
 
                                     <button type="submit"
                                             class="btn btn-sm btn-outline-danger"
-                                            onclick="return confirm('Are you sure you want to delete @car.Brand @car.Model?');">
+                                            onclick="return confirm(
+                                                'Are you sure you want to delete this car?\n\n' +
+                                                '@car.Brand @car.Model (@car.Year)\n' +
+                                                'Tuner: @(string.IsNullOrWhiteSpace(car.Tuner) ? "None" : car.Tuner)'
+                                            );">
                                         Delete
                                     </button>
 
