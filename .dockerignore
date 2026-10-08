@@ -13,3 +13,8 @@ compose*.yaml
 sixlabors.lic
 
 wwwroot/uploads/cars/*
+
+node_modules/
+docker-test.env
+appsettings.Development.json
+.wrangler/

@@ -8,11 +8,12 @@ namespace Carbase.Services
 {
     public class CarImageService
     {
-        private const long MaxFileSize = 5 * 1024 * 1024;
+        private const long MaxFileSize = 15 * 1024 * 1024;
         private const int MinWidth = 100;
         private const int MinHeight = 100;
         private const int MaxWidth = 6000;
         private const int MaxHeight = 6000;
+        private const int MaxImageDimension = 1920;
 
         private static readonly HashSet<string> AllowedExtensions =
         [
@@ -67,11 +68,11 @@ namespace Carbase.Services
 
             var detectedFormat = imageInfo.Metadata.DecodedImageFormat;
 
-            var extension = detectedFormat switch
+            _ = detectedFormat switch
             {
-                JpegFormat => ".jpg",
-                PngFormat => ".png",
-                WebpFormat => ".webp",
+                JpegFormat => true,
+                PngFormat => true,
+                WebpFormat => true,
                 _ => throw new InvalidOperationException(
                     "Only JPG, PNG and WEBP images are allowed.")
             };
@@ -119,12 +120,22 @@ namespace Carbase.Services
             {
                 image.Mutate(x => x.AutoOrient());
 
+                if (image.Width > MaxImageDimension ||
+                    image.Height > MaxImageDimension)
+                {
+                    image.Mutate(x => x.Resize(new ResizeOptions
+                    {
+                        Mode = ResizeMode.Max,
+                        Size = new Size(MaxImageDimension, MaxImageDimension)
+                    }));
+                }
+
                 image.Metadata.ExifProfile = null;
                 image.Metadata.IccProfile = null;
                 image.Metadata.XmpProfile = null;
                 image.Metadata.IptcProfile = null;
 
-                var fileName = $"{Guid.NewGuid()}{extension}";
+                var fileName = $"{Guid.NewGuid()}.webp";
 
                 var directory = Path.Combine(
                     _environment.WebRootPath,
@@ -137,10 +148,12 @@ namespace Carbase.Services
                     directory,
                     fileName);
 
-                await SaveImageAsync(
-                    image,
-                    filePath,
-                    extension);
+                await image.SaveAsync(filePath, new WebpEncoder
+                {
+                    Quality = 80,
+                    Method = WebpEncodingMethod.Fastest,
+                    FileFormat = WebpFileFormatType.Lossy
+                });
 
                 return $"/uploads/cars/{fileName}";
             }
@@ -183,7 +196,7 @@ namespace Carbase.Services
             if (file.Length > MaxFileSize)
             {
                 throw new InvalidOperationException(
-                    "Image cannot be larger than 5 MB.");
+                    "Image cannot be larger than 15 MB.");
             }
 
             var extension = Path
@@ -200,41 +213,6 @@ namespace Carbase.Services
             {
                 throw new InvalidOperationException(
                     "Invalid image content type.");
-            }
-        }
-
-        private static async Task SaveImageAsync(
-            Image image,
-            string filePath,
-            string extension)
-        {
-            switch (extension)
-            {
-                case ".jpg":
-                case ".jpeg":
-                    await image.SaveAsync(
-                        filePath,
-                        new JpegEncoder());
-
-                    break;
-
-                case ".png":
-                    await image.SaveAsync(
-                        filePath,
-                        new PngEncoder());
-
-                    break;
-
-                case ".webp":
-                    await image.SaveAsync(
-                        filePath,
-                        new WebpEncoder());
-
-                    break;
-
-                default:
-                    throw new InvalidOperationException(
-                        "Unsupported image format.");
             }
         }
     }
