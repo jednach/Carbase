@@ -1,4 +1,5 @@
-﻿using SixLabors.ImageSharp;
+﻿using Carbase.Services.Storage;
+using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Jpeg;
 using SixLabors.ImageSharp.Formats.Png;
 using SixLabors.ImageSharp.Formats.Webp;
@@ -29,11 +30,11 @@ namespace Carbase.Services
             "image/webp"
         ];
 
-        private readonly IWebHostEnvironment _environment;
+        private readonly ICarImageStorage _storage;
 
-        public CarImageService(IWebHostEnvironment environment)
+        public CarImageService(ICarImageStorage storage)
         {
-            _environment = environment;
+            _storage = storage;
         }
 
         public async Task<string> SaveAsync(IFormFile file)
@@ -126,50 +127,50 @@ namespace Carbase.Services
 
                 var fileName = $"{Guid.NewGuid()}{extension}";
 
-                var directory = Path.Combine(
-                    _environment.WebRootPath,
-                    "uploads",
-                    "cars");
+                await using var outputStream = new MemoryStream();
 
-                Directory.CreateDirectory(directory);
+                switch (extension)
+                {
+                    case ".jpg":
+                        await image.SaveAsync(
+                            outputStream,
+                            new JpegEncoder());
+                        break;
 
-                var filePath = Path.Combine(
-                    directory,
-                    fileName);
+                    case ".png":
+                        await image.SaveAsync(
+                            outputStream,
+                            new PngEncoder());
+                        break;
 
-                await SaveImageAsync(
-                    image,
-                    filePath,
-                    extension);
+                    case ".webp":
+                        await image.SaveAsync(
+                            outputStream,
+                            new WebpEncoder());
+                        break;
+                }
 
-                return $"/uploads/cars/{fileName}";
+                outputStream.Position = 0;
+
+                var contentType = extension switch
+                {
+                    ".jpg" => "image/jpeg",
+                    ".png" => "image/png",
+                    ".webp" => "image/webp",
+                    _ => throw new InvalidOperationException(
+                        "Unsupported image format.")
+                };
+
+                return await _storage.SaveAsync(
+                    outputStream,
+                    fileName,
+                    contentType);
             }
         }
 
-        public void DeleteFile(string? imagePath)
+        public Task DeleteAsync(string? imagePath)
         {
-            if (string.IsNullOrWhiteSpace(imagePath))
-            {
-                return;
-            }
-
-            var fileName = Path.GetFileName(imagePath);
-
-            if (string.IsNullOrWhiteSpace(fileName))
-            {
-                return;
-            }
-
-            var fullPath = Path.Combine(
-                _environment.WebRootPath,
-                "uploads",
-                "cars",
-                fileName);
-
-            if (File.Exists(fullPath))
-            {
-                File.Delete(fullPath);
-            }
+            return _storage.DeleteAsync(imagePath);
         }
 
         private static void ValidateBasicFileInfo(IFormFile file)
@@ -200,41 +201,6 @@ namespace Carbase.Services
             {
                 throw new InvalidOperationException(
                     "Invalid image content type.");
-            }
-        }
-
-        private static async Task SaveImageAsync(
-            Image image,
-            string filePath,
-            string extension)
-        {
-            switch (extension)
-            {
-                case ".jpg":
-                case ".jpeg":
-                    await image.SaveAsync(
-                        filePath,
-                        new JpegEncoder());
-
-                    break;
-
-                case ".png":
-                    await image.SaveAsync(
-                        filePath,
-                        new PngEncoder());
-
-                    break;
-
-                case ".webp":
-                    await image.SaveAsync(
-                        filePath,
-                        new WebpEncoder());
-
-                    break;
-
-                default:
-                    throw new InvalidOperationException(
-                        "Unsupported image format.");
             }
         }
     }

@@ -99,7 +99,7 @@ namespace Carbase.Pages.Cars
             _context.Cars.Remove(car);
             await _context.SaveChangesAsync();
 
-            _carImageService.DeleteFile(imagePath);
+            await _carImageService.DeleteAsync(imagePath);
 
             return RedirectToPage();
         }

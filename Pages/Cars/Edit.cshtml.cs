@@ -153,7 +153,7 @@ public class EditModel : PageModel
         {
             if (newImagePath is not null)
             {
-                _carImageService.DeleteFile(newImagePath);
+                await _carImageService.DeleteAsync(newImagePath);
             }
 
             throw;
@@ -161,7 +161,7 @@ public class EditModel : PageModel
 
         if (newImagePath is not null)
         {
-            _carImageService.DeleteFile(oldImagePath);
+            await _carImageService.DeleteAsync(oldImagePath);
         }
 
         return RedirectToPage("./Index");

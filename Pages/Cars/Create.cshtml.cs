@@ -127,7 +127,7 @@ namespace Carbase.Pages.Cars
             {
                 if (imagePath is not null)
                 {
-                    _carImageService.DeleteFile(imagePath);
+                    await _carImageService.DeleteAsync(imagePath);
                 }
 
                 throw;

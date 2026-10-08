@@ -1,6 +1,9 @@
+using Amazon.Runtime;
+using Amazon.S3;
 using Carbase.Data;
 using Carbase.Infrastructure.ModelBinding;
 using Carbase.Services;
+using Carbase.Services.Storage;
 using Carbase.Validation.Car;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +32,41 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddScoped<CarImageService>();
 builder.Services.AddValidatorsFromAssemblyContaining<CarCreateRequestValidator>();
 builder.Services.AddScoped<CarQueryService>();
+
+
+builder.Services.AddSingleton<IAmazonS3>(sp =>
+{
+    var configuration =
+        sp.GetRequiredService<IConfiguration>();
+
+    var accountId = configuration["R2:AccountId"]
+        ?? throw new InvalidOperationException(
+            "R2 AccountId is missing.");
+
+    var accessKeyId = configuration["R2:AccessKeyId"]
+        ?? throw new InvalidOperationException(
+            "R2 AccessKeyId is missing.");
+
+    var secretAccessKey = configuration["R2:SecretAccessKey"]
+        ?? throw new InvalidOperationException(
+            "R2 SecretAccessKey is missing.");
+
+    var credentials = new BasicAWSCredentials(
+        accessKeyId,
+        secretAccessKey);
+
+    var s3Config = new AmazonS3Config
+    {
+        ServiceURL =
+            $"https://{accountId}.r2.cloudflarestorage.com",
+        ForcePathStyle = true,
+        AuthenticationRegion = "auto"
+    };
+
+    return new AmazonS3Client(credentials, s3Config);
+});
+
+builder.Services.AddScoped<ICarImageStorage,R2CarImageStorage>();
 
 var app = builder.Build();
 
@@ -59,5 +97,44 @@ app.UseAuthorization();
 app.MapStaticAssets();
 app.MapRazorPages()
    .WithStaticAssets();
+
+
+app.MapGet("/images/cars/{fileName}", async (
+    string fileName,
+    ICarImageStorage storage,
+    HttpContext context) =>
+{
+    var extension = Path.GetExtension(fileName).ToLowerInvariant();
+    var nameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
+
+    if (!Guid.TryParseExact(nameWithoutExtension, "D", out _) ||
+        extension is not (".jpg" or ".png" or ".webp"))
+    {
+        return Results.NotFound();
+    }
+
+    try
+    {
+        using var image = await storage.GetAsync(fileName);
+
+        context.Response.ContentType = image.Headers.ContentType
+            ?? "application/octet-stream";
+
+        context.Response.Headers.CacheControl =
+            "public, max-age=86400";
+
+        await image.ResponseStream.CopyToAsync(
+            context.Response.Body,
+            context.RequestAborted);
+
+        return Results.Empty;
+    }
+    catch (Amazon.S3.AmazonS3Exception ex)
+        when (ex.StatusCode == System.Net.HttpStatusCode.NotFound)
+    {
+        return Results.NotFound();
+    }
+});
+
 
 app.Run();

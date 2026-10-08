@@ -65,5 +65,14 @@ sixlabors.lic
 
 # Environment
 .env
+docke-test.env
 
 .vs/
+
+# Wrangler local files
+.wrangler/
+
+# Node.js
+node_modules/
+
+appsettings.Development.json
